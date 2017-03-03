@@ -2,24 +2,15 @@ import React, {Component} from 'react';
 import './App.css';
 import {products} from './seed';
 
+// console.log(products);
+
+
 export class ProductList extends Component {
-  constructor(props) {
-    super(props);
-  
-    this.state = {
-      products: []
-    };
-  }
-
-  componentDidMount() {
-    this.setState({products: products});
-  }
-
 	handleProductUpVote(productId){
 		console.log(productId + ' was voted up');
 	}
   render() {
-  	const productsSort = this.state.products.sort( (a,b) => (b.votes - a.votes));
+  	const productsSort = products.sort( (a,b) => (b.votes - a.votes));
   	//if return value of SORT is less than 0 {a} comes first greater than 0 {b} comes first
   	// products.sort( (a,b) => (b.votes - a.votes)); //works as well
 
