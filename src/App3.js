@@ -3,19 +3,21 @@ import './App.css';
 import {products} from './seed';
 
 export class ProductList extends Component {
-  //ES7 property initializers
-  //1 we can use arrow functions for custom component methods (binds this)
-  //2 we can define the initial state outside of constructor()
-    state = {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
       products: []
     };
-  //no need to set up a Constructor ES Class Fields & Static Properties ES7
+
+    this.handleProductUpVote = this.handleProductUpVote.bind(this);
+  }
+
   componentDidMount() {
     this.setState({products: products});
   }
 
-	handleProductUpVote = (productId) => {
-    //no need to bind this ES Class Fields & Static Properties ES7
+	handleProductUpVote(productId){
 		// console.log(productId + ' was voted up');
     const nextProducts = this.state.products.map((product) => {
       if(product.id === productId){
@@ -61,8 +63,14 @@ export class ProductList extends Component {
 }
 
 class Product extends Component {
-	//no need to bind this ES Class Fields & Static Properties ES7
-	handleUpVote = () => {
+	constructor(props) {
+	  super(props); //if you have constructor super() will call Components constructor which binds this to your class
+	
+	  this.handleUpVote = this.handleUpVote.bind(this);
+	  //inside render {this} = the Product Class but in our own custome functions {this} = null so we must bind
+	  //it inside the constructor to point to the Product class
+	}
+	handleUpVote(){
 		this.props.onVote(this.props.id);
 	}
 	render(){
